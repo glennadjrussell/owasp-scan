@@ -1,0 +1,28 @@
+# action.yml
+name: 'owasp-scan'
+description: 'Perform a web application scan on an endpoint, optionally authenticated'
+inputs:
+  host:
+    description: 'The endpoint that will be scanned '
+    required: true
+  format:
+    description: 'The file output format to generate'
+    required: false
+    default: 'xml'
+outputs:
+  results: # id of output
+    description: 'Scan results in JSON format'
+runs:
+  using: 'docker'
+  image: 'docker://owasp/zap2docker-stable'
+  args:
+    - zap-full-scan.py
+    - -g
+    - gen-conf
+    - -j
+    - /tmp/test_report.json
+    - -t
+    - ${{ inputs.host }}
+
+# docker run --rm -v $PWD/data:/zap/wrk:rw -t owasp/zap2docker-stable zap-full-scan.py -g gen-conf -J test_report.json -t http://host.docker.internal:3000
+
