@@ -15,16 +15,8 @@ outputs:
 runs:
   using: 'docker'
   image: 'docker://owasp/zap2docker-stable'
-  volumes:
-    .:/zap/wrk
   args:
     - zap-full-scan.py
-    - -g
-    - gen-conf
-    - -J
-    - /tmp/test_report.json
     - -t
     - ${{ inputs.host }}
-
-# docker run --rm -v $PWD/data:/zap/wrk:rw -t owasp/zap2docker-stable zap-full-scan.py -g gen-conf -J test_report.json -t http://host.docker.internal:3000
 
