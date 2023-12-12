@@ -19,7 +19,7 @@ runs:
     - zap-full-scan.py
     - -g
     - gen-conf
-    - -j
+    - -J
     - /tmp/test_report.json
     - -t
     - ${{ inputs.host }}
